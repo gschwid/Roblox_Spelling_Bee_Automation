@@ -1,14 +1,26 @@
 import pyautogui
 import time
 import cv2 as cv
+from pywinauto import Application
 
 orb = cv.ORB_create()
+app = Application(backend="uia")
+app.connect(title="Roblox")
+dlg_spec = app.window(title='Roblox')
 
 def checkIfTurn(picturesSaved):
     try:
-        pyautogui.screenshot(imageFilename="check.png", region=(800,550,300,300))
+        rectangle = dlg_spec.wrapper_object().rectangle()
+        center = rectangle.mid_point()
+        width, height = rectangle.width(), rectangle.height()
+        centerWidth, centerHeight = center.x, center.y
+        widthRatio = int(width / 8) # 8 is a hyperparameter that seemed to work well
+        heightRatio = int(height / 12)
+        squareSize = max(widthRatio, heightRatio)
+        pyautogui.screenshot(imageFilename="check.png", region=(centerWidth - widthRatio, centerHeight + heightRatio, squareSize * 2, squareSize * 2))
         reference_picture = cv.imread('reference.png', cv.IMREAD_GRAYSCALE)
         screenshot_picture = cv.imread("check.png", cv.IMREAD_GRAYSCALE)
+        screenshot_picture = cv.resize(screenshot_picture, reference_picture.shape)
     
         # Get descriptors
         kp1, des1 = orb.detectAndCompute(reference_picture,None)

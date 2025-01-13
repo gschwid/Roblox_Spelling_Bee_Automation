@@ -17,4 +17,4 @@ centerWidth, centerHeight = center.x, center.y
 print(f'left: {rectangle.left}, top: {rectangle.top}, right: {rectangle.right}, bottom: {rectangle.bottom}')
 print(f"width: {rectangle.width()}, height: {rectangle.height()}")
 
-pyautogui.screenshot(imageFilename="test.png", region=(left +  int((850 / 1920) * width), top + int((600 / 1080) * height), 250, 250))
+pyautogui.screenshot(imageFilename="test.png", region=(centerWidth - int(centerWidth / 8), centerHeight + int(centerHeight / 8), int(centerWidth / 8) * 2, int(centerWidth / 8) * 2))
