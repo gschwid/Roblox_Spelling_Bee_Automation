@@ -20,7 +20,7 @@ if __name__ == '__main__':
             createAudioFile(imagesSaved)
             sentence = transcribeAudio('word.wav')
             word = getWordFromSentence(sentence)
-            writeWord(word,0.05)
+            writeWord(word,0.1)
             foundMatches = 0
             imagesSaved += 1
             waitForPixelChange(1844, 545, 1)
