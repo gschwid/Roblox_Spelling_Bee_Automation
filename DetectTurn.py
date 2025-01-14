@@ -4,7 +4,7 @@ import cv2 as cv
 from pywinauto import Application
 
 orb = cv.ORB_create()
-app = Application(backend="uia")
+app = Application()
 app.connect(title="Roblox")
 dlg_spec = app.window(title='Roblox')
 
@@ -47,12 +47,24 @@ def checkIfTurn(picturesSaved):
     except ValueError:
         print("idk man some shit happened")
 
+def checkButton(sleep):
+    rectangle = dlg_spec.wrapper_object().rectangle()
+    center = rectangle.mid_point()
+    left, top, right, bottom = rectangle.left, rectangle.top, rectangle.right, rectangle.bottom
+    width, height = rectangle.width(), rectangle.height()
+    centerWidth, centerHeight = center.x, center.y
+    waitForPixelChange(right - 30, centerHeight, sleep)
+
 def waitForPixelChange(x, y, sleep):
     initialPixel = pyautogui.pixel(x, y)
     newPixel = pyautogui.pixel(x, y)
     while newPixel == initialPixel:
+        print(newPixel)
         newPixel = pyautogui.pixel(x, y)
     if sleep > 0:
         time.sleep(sleep)
     print("Pixel change detected!")
     return
+
+if __name__ == '__main__':
+    checkButton(0)

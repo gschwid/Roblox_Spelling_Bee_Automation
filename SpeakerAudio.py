@@ -2,7 +2,7 @@ import pyaudiowpatch as pyaudio
 import time
 import wave
 import pyautogui
-from DetectTurn import waitForPixelChange
+from DetectTurn import checkButton
 
 # Code taken from..
 # https://github.com/s0d3s/PyAudioWPatch/blob/master/examples/pawp_record_wasapi_loopback.py
@@ -51,7 +51,7 @@ def createAudioFile(filesCreated):
         stream_callback=callback
     ) as stream:             
         print(f'recording stream to {filename}, stopping when repeat button detected...')
-        waitForPixelChange(1844,545, 0)
+        checkButton(0)
         wave_file.close()
 
 def releaseAudioResources():

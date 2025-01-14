@@ -1,7 +1,8 @@
 from SpeakerAudio import createAudioFile, releaseAudioResources
-from DetectTurn import checkIfTurn, waitForPixelChange
+from DetectTurn import checkIfTurn, checkButton
 from InterpretAudio import transcribeAudio, getWordFromSentence
 from Typing import writeWord
+
 
 if __name__ == '__main__':
     foundMatches = 0
@@ -23,5 +24,5 @@ if __name__ == '__main__':
             writeWord(word,0.05)
             foundMatches = 0
             imagesSaved += 1
-            waitForPixelChange(1844, 545, 1)
+            checkButton(1)
             
