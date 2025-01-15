@@ -51,7 +51,7 @@ def createAudioFile(filesCreated):
         stream_callback=callback
     ) as stream:             
         print(f'recording stream to {filename}, stopping when repeat button detected...')
-        checkButton(0)
+        checkButton(0.5)
         wave_file.close()
 
 def releaseAudioResources():
