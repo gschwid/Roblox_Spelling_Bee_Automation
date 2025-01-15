@@ -1,6 +1,7 @@
 import pyautogui
 import time
 import cv2 as cv
+import pytesseract
 from pywinauto import Application
 
 orb = cv.ORB_create()
@@ -14,14 +15,6 @@ def updateWindowInfo():
     width, height = rectangle.width(), rectangle.height()
     centerWidth, centerHeight = center.x, center.y
     left, top, right, bottom = rectangle.left, rectangle.top, rectangle.right, rectangle.bottom
-    if left < 0:
-        left = 0
-    elif right < 0:
-        right = 0
-    elif top < 0:
-        top = 0
-    elif bottom < 0:
-        bottom = 0
     windowInfo = {
         'width' : width,
         'height' : height,
@@ -39,8 +32,11 @@ def checkIfTurn(picturesSaved):
         heightRatio = int(windowInfo['height'] / 12)
         squareSize = max(widthRatio, heightRatio)
         pyautogui.screenshot(imageFilename="check.png", region=(windowInfo['centerWidth'] - widthRatio, windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
-        featureMatch('reference.png', 'check.png', 15)
-
+        if featureMatch('reference.png', 'check.png', 15):
+            return True
+        else:
+            return False
+        
 def featureMatch(referencePicture, screenshot, minGoodMatches):
     try:
         reference_picture = cv.imread(referencePicture, cv.IMREAD_GRAYSCALE)
@@ -72,18 +68,25 @@ def featureMatch(referencePicture, screenshot, minGoodMatches):
 
 def checkButton(sleep):
     updateWindowInfo()
-    print(f"{windowInfo['right']} {windowInfo['centerHeight']}")
-    waitForPixelChange(windowInfo['right'] - 30, windowInfo['centerHeight'], sleep)
+    waitForPixelChange(windowInfo['right'] - 30, windowInfo['centerHeight'], 0, sleep)
 
-def waitForPixelChange(x, y, sleep):
+def waitForPixelChange(x, y, threshold, sleep):
     newPixel = pyautogui.pixel(x, y)
     print(newPixel)
-    while newPixel[0] != newPixel[1] or newPixel[1] != newPixel[2] or newPixel[2] != newPixel[0]:
+    while abs(newPixel[0] - newPixel[1]) > threshold or abs(newPixel[1] - newPixel[2]) > threshold or abs(newPixel[2] - newPixel[0]) > threshold:
         newPixel = pyautogui.pixel(x, y)
     if sleep > 0:
         time.sleep(sleep)
     print("Pixel change detected!")
     return
+
+# THIS NEEDS TO BE REFACTORED
+def detectPixelChange(x, y, threshold, sleep):
+    newPixel = pyautogui.pixel(x, y)
+    if abs(newPixel[0] - newPixel[1]) > threshold or abs(newPixel[1] - newPixel[2]) > threshold or abs(newPixel[2] - newPixel[0]) > threshold:
+        return False
+    else:
+        return True
 
 def checkIfRobloxIsOpen():
     global app
@@ -97,17 +100,11 @@ def checkIfRobloxIsOpen():
         return False
     
 def checkIfDead():
-    time.sleep(2)
-    try:
-        location = pyautogui.locateOnScreen('died.png')
-        pyautogui.click(location)
-        return True
-    except:
-        print("not dead!")
-        return False
+    updateWindowInfo()
+    time.sleep(5)
+    detectPixelChange(windowInfo['centerWidth'], windowInfo['centerHeight'], 5, 0)
     
-
 if __name__ == '__main__':
     checkIfRobloxIsOpen()
-    while True:
-        checkButton(0)
+    checkIfDead()
+

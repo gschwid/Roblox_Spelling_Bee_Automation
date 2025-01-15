@@ -30,13 +30,6 @@ if __name__ == '__main__':
             checkButton(1)
             if checkIfDead():
                 print("you died!")
-                nextGame = False
-                while not nextGame:
-                    try:
-                        pyautogui.locateOnScreen("Intermission.png")
-                        nextGame = True
-                        print("New game starting...")
-                    except:
-                        print("waiting for next game...")
+                break
             
             
