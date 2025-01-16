@@ -83,6 +83,7 @@ def waitForPixelChange(x, y, threshold, sleep):
 # THIS NEEDS TO BE REFACTORED
 def detectPixelChange(x, y, threshold, sleep):
     newPixel = pyautogui.pixel(x, y)
+    print(newPixel)
     if abs(newPixel[0] - newPixel[1]) > threshold or abs(newPixel[1] - newPixel[2]) > threshold or abs(newPixel[2] - newPixel[0]) > threshold:
         return False
     else:
@@ -100,9 +101,12 @@ def checkIfRobloxIsOpen():
         return False
     
 def checkIfDead():
+    time.sleep(1)
     updateWindowInfo()
-    time.sleep(5)
-    detectPixelChange(windowInfo['centerWidth'], windowInfo['centerHeight'], 5, 0)
+    if detectPixelChange(windowInfo['centerWidth'], windowInfo['centerHeight'],5, 0):
+        return True
+    else:
+        return False
     
 if __name__ == '__main__':
     checkIfRobloxIsOpen()
