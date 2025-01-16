@@ -2,7 +2,7 @@ import pyaudiowpatch as pyaudio
 import time
 import wave
 import pyautogui
-from DetectTurn import checkButton
+from VisualDetection import checkButton
 
 # Code taken from..
 # https://github.com/s0d3s/PyAudioWPatch/blob/master/examples/pawp_record_wasapi_loopback.py
