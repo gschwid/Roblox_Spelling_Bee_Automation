@@ -32,7 +32,7 @@ def checkIfTurn(picturesSaved):
         heightRatio = int(windowInfo['height'] / 12)
         squareSize = max(widthRatio, heightRatio)
         pyautogui.screenshot(imageFilename="check.png", region=(windowInfo['centerWidth'] - widthRatio, windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
-        if featureMatch('reference.png', 'check.png', 15):
+        if featureMatch('reference.png', 'check.png', 20):
             return True
         else:
             return False
@@ -100,10 +100,15 @@ def checkIfRobloxIsOpen():
         print('Roblox window not open...')
         return False
     
-def checkIfDead():
-    time.sleep(1)
+def handleDeath():
     updateWindowInfo()
-    if detectPixelChange(windowInfo['centerWidth'], windowInfo['centerHeight'],5, 0):
+    pyautogui.click(windowInfo['centerWidth'], windowInfo['centerHeight'])
+    
+def detectNewGame():
+    updateWindowInfo()
+    pyautogui.screenshot("screen.png", region=(windowInfo['left'], windowInfo['top'], windowInfo['width'], windowInfo['height']))
+    time.sleep(0.1)
+    if featureMatch('reference.png', 'screen.png', 7):
         return True
     else:
         return False
