@@ -1,9 +1,13 @@
 from SpeakerAudio import createAudioFile, releaseAudioResources
-from DetectTurn import checkIfTurn, waitForPixelChange
+from DetectTurn import checkIfTurn, checkButton, checkIfRobloxIsOpen, handleDeath, detectNewGame
 from InterpretAudio import transcribeAudio, getWordFromSentence
+import pyautogui
 from Typing import writeWord
 
+
 if __name__ == '__main__':
+    while not checkIfRobloxIsOpen():
+        pass
     foundMatches = 0
     found = False
     imagesSaved = 62
@@ -15,7 +19,7 @@ if __name__ == '__main__':
         else:
             found = False
             foundMatches = 0
-        if foundMatches >= 1:
+        if foundMatches >= 3:
             found = True
             createAudioFile(imagesSaved)
             sentence = transcribeAudio('word.wav')
@@ -23,5 +27,7 @@ if __name__ == '__main__':
             writeWord(word,0.1)
             foundMatches = 0
             imagesSaved += 1
-            waitForPixelChange(1844, 545, 1)
+            checkButton(3)
+            handleDeath()
+            
             
