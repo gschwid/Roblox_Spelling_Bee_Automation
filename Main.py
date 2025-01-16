@@ -1,5 +1,5 @@
-from SpeakerAudio import createAudioFile, releaseAudioResources
-from DetectTurn import checkIfTurn, checkButton, checkIfRobloxIsOpen, handleDeath, detectNewGame
+from AudioHandler import createAudioFile, releaseAudioResources
+from VisualDetection import checkIfTurn, checkButton, checkIfRobloxIsOpen, handleDeath, detectNewGame
 from InterpretAudio import transcribeAudio, getWordFromSentence
 import pyautogui
 from Typing import writeWord
