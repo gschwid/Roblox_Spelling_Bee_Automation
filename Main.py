@@ -23,14 +23,16 @@ if __name__ == '__main__':
             foundMatches = 0
         if foundMatches >= 3:
             found = True
-            audioHandler.createAudioFile(imagesSaved, 'word.wav', visualDetector.waitForRepeatButton)
-            sentence = audioHandler.transcribeAudio('word.wav')
-            word = audioHandler.getWordFromSentence(sentence)
-            typingHandler.writeWord(word,0.1)
-
-            foundMatches = 0
-            imagesSaved += 1
-            visualDetector.waitForRepeatButton(3)
-            visualDetector.handleDeath()
+            validDetection = audioHandler.createAudioFile(imagesSaved, 'word.wav', visualDetector.waitForRepeatButton) 
+            if validDetection: # This makes sure time out did not happen
+                sentence = audioHandler.transcribeAudio('word.wav')
+                word = audioHandler.getWordFromSentence(sentence)
+                typingHandler.writeWord(word,0.1)
+                foundMatches = 0
+                imagesSaved += 1
+                visualDetector.waitForRepeatButton(3, 7)
+                visualDetector.handleDeath()
+            else:
+                print ("Looks like the button was not found before timed out, must have been a false character detection.")
             
             

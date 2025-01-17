@@ -2,6 +2,7 @@ import pyautogui
 import time
 import cv2 as cv
 from pywinauto import Application
+import func_timeout
 
 class VisualDetection:
     """
@@ -94,12 +95,21 @@ class VisualDetection:
         except ValueError:
             print("Something broke lol")
 
-    def waitForRepeatButton(self, sleep):
+    def waitForRepeatButton(self, sleep, timeout):
         """
         Checks if the repeat button has appeared in the Roblox Spelling Bee.
+
+        Attributes:
+            sleep (int): How long the script will sleep after button is found.
+            timeout (int): How long the function will wait for the button.
         """
         self.updateWindowInfo()
-        self.waitForPixelChangeNuetralColor(self._windowInfo['right'] - 30, self._windowInfo['centerHeight'], 0, sleep)
+        try:
+            func_timeout.func_timeout(timeout, self.waitForPixelChangeNuetralColor, args=(self._windowInfo['right'] - 30, self._windowInfo['centerHeight'], 0, sleep))
+            return True
+        except func_timeout.FunctionTimedOut:
+            print("Button took too long to find, timing out..")
+            return False
 
     def waitForPixelChangeNuetralColor(self, x, y, threshold, sleep):
         """
