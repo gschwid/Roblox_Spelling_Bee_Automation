@@ -1,7 +1,6 @@
 import pyautogui
 import time
 import cv2 as cv
-import pytesseract
 from pywinauto import Application
 
 class VisualDetection:
@@ -73,8 +72,8 @@ class VisualDetection:
             screenshotPicture = cv.imread(screenshot, cv.IMREAD_GRAYSCALE)
         
             # Get descriptors
-            kp1, des1 = self.orb_.detectAndCompute(referencePicture,None)
-            kp2, des2 = self.orb_.detectAndCompute(screenshotPicture,None)
+            kp1, des1 = self._orb.detectAndCompute(referencePicture,None)
+            kp2, des2 = self._orb.detectAndCompute(screenshotPicture,None)
 
             # Use brute force matching to find 2 best matches between images
             bf = cv.BFMatcher()

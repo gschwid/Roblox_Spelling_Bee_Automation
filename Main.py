@@ -1,33 +1,36 @@
-from AudioHandler import createAudioFile, releaseAudioResources
-from VisualDetection import checkIfTurn, checkButton, checkIfRobloxIsOpen, handleDeath, detectNewGame
-from InterpretAudio import transcribeAudio, getWordFromSentence
-import pyautogui
-from Typing import writeWord
+from VisualDetection import VisualDetection
+from AudioHandler import AudioHandler
+from TypingHandler import TypingHandler
 
 
 if __name__ == '__main__':
-    while not checkIfRobloxIsOpen():
+    audioHandler = AudioHandler()
+    visualDetector = VisualDetection()
+    typingHandler = TypingHandler()
+
+    # Wait for a Roblox window to open
+    while not visualDetector.checkIfRobloxIsOpen():
         pass
-    foundMatches = 0
-    found = False
-    imagesSaved = 62
+    
     print("Starting script... \nLooking for roblox charatcer")
+    foundMatches = 0
+    imagesSaved = 62
     while True:
-        match = checkIfTurn(imagesSaved)
+        match = visualDetector.checkIfTurn(imagesSaved)
         if match:
             foundMatches +=1
         else:
-            found = False
             foundMatches = 0
         if foundMatches >= 3:
             found = True
-            createAudioFile(imagesSaved)
-            sentence = transcribeAudio('word.wav')
-            word = getWordFromSentence(sentence)
-            writeWord(word,0.1)
+            audioHandler.createAudioFile(imagesSaved, 'word.wav', visualDetector.waitForRepeatButton)
+            sentence = audioHandler.transcribeAudio('word.wav')
+            word = audioHandler.getWordFromSentence(sentence)
+            typingHandler.writeWord(word,0.1)
+
             foundMatches = 0
             imagesSaved += 1
-            checkButton(3)
-            handleDeath()
+            visualDetector.waitForRepeatButton(3)
+            visualDetector.handleDeath()
             
             

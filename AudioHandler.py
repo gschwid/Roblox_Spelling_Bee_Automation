@@ -2,7 +2,6 @@ import pyaudiowpatch as pyaudio
 import time
 import wave
 import pyautogui
-from VisualDetection import checkButton
 import whisper
 
 class AudioHandler:
@@ -15,14 +14,12 @@ class AudioHandler:
         _p: instance of the PyAudio class.
         _defaultSpeakers: Information about the default loopback device.
     """
+
     CHUNK_SIZE = 512
     _model = whisper.load_model('tiny.en')
+    _p = pyaudio.PyAudio()
     
     def __init__(self):
-        """
-        Initializes the AudioHandler class with private attributes.
-        """
-        self._p = pyaudio.PyAudio()
         self._defaultSpeakers = self.initialzeRecordingSetup()
 
     def initialzeRecordingSetup(self):
