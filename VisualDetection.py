@@ -3,6 +3,8 @@ import time
 import cv2 as cv
 from pywinauto import Application
 import func_timeout
+import shutil
+import os
 
 class VisualDetection:
     """
@@ -54,6 +56,7 @@ class VisualDetection:
         squareSize = max(widthRatio, heightRatio)
         pyautogui.screenshot(imageFilename="check.png", region=(self._windowInfo['centerWidth'] - widthRatio, self._windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
         if self.featureMatch('reference.png', 'check.png', 20):
+            shutil.copy("check.png", "dataset/check" + str(picturesSaved) + ".png") 
             return True
         else:
             return False

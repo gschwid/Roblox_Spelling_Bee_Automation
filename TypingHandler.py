@@ -25,7 +25,7 @@ class TypingHandler:
                 keyDown(mistakeChr)
                 keyUp(mistakeChr)
                 sleep(randomSleepTime)
-                sleep(0.01)
+                sleep(0.1)
                 keyboard.press_and_release('backspace')
             keyDown(chr)
             sleep(randomSleepTime)
