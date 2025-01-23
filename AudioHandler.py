@@ -94,7 +94,7 @@ class AudioHandler:
         Attributes:
             filename (str): name of wive file being transcribed.
         """
-        result = self._model.transcribe(filename)
+        result = self._model.transcribe(filename, initial_prompt="Transcribe words from a spelling bee, especially focusing on rare or complex words like medical terms, foreign words, or proper nouns.")
         return result['text']
 
     def getWordFromSentence(self, sentence):
