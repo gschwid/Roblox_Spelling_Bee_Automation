@@ -2,7 +2,9 @@ import pyaudiowpatch as pyaudio
 import time
 import wave
 import pyautogui
-import whisper
+from transformers import WhisperForConditionalGeneration, WhisperFeatureExtractor, WhisperTokenizer
+import torchaudio
+from torchaudio.transforms import Resample
 
 class AudioHandler:
     """
@@ -16,7 +18,9 @@ class AudioHandler:
     """
 
     CHUNK_SIZE = 512
-    _model = whisper.load_model('tiny.en')
+    _model = WhisperForConditionalGeneration.from_pretrained('whisper-spelling-bee')
+    _featureExtractor = WhisperFeatureExtractor.from_pretrained('whisper-spelling-bee')
+    _tokenizer = WhisperTokenizer.from_pretrained('openai/whisper-tiny')
     _p = pyaudio.PyAudio()
     
     def __init__(self):
@@ -94,8 +98,17 @@ class AudioHandler:
         Attributes:
             filename (str): name of wive file being transcribed.
         """
-        result = self._model.transcribe(filename)
-        return result['text']
+        resampledRate = 16000
+        waveform, sampleRate = torchaudio.load(filename)
+        resampler = Resample(sampleRate, resampledRate, dtype=waveform.dtype)
+        resampledWaveform = resampler(waveform).squeeze()
+
+        inputs = self._featureExtractor(resampledWaveform, sampling_rate=16000, return_tensors="pt", padding=True)
+        inputFeatures = inputs["input_features"]
+        predicted_ids = self._model.generate(inputFeatures)
+        transcription = self._tokenizer.batch_decode(predicted_ids, skip_special_tokens=True)
+
+        return transcription[0]
 
     def getWordFromSentence(self, sentence):
         """
@@ -110,3 +123,7 @@ class AudioHandler:
                 onlyLetters += chr
         listOfWords = onlyLetters.split(" ")
         return listOfWords[-1]
+
+if __name__ == '__main__':
+    audioHandler = AudioHandler()
+    print(audioHandler.transcribeAudio('word.wav'))

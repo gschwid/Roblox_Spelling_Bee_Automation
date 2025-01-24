@@ -18,7 +18,7 @@ class TypingHandler:
             errorProbability (float): probability that a misinput happens when typing. 
         """
         for chr in word:
-            randomSleepTime = uniform(0, 0.005)
+            randomSleepTime = uniform(0, 0.000005)
             randomPercentage = random()
             if randomPercentage < errorProbability:
                 mistakeChr = self.generateRandomChar()
