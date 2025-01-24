@@ -18,8 +18,8 @@ class AudioHandler:
     """
 
     CHUNK_SIZE = 512
-    _model = WhisperForConditionalGeneration.from_pretrained('whisper-spelling-bee')
-    _featureExtractor = WhisperFeatureExtractor.from_pretrained('whisper-spelling-bee')
+    _model = WhisperForConditionalGeneration.from_pretrained('whisper-spelling-bee-model')
+    _featureExtractor = WhisperFeatureExtractor.from_pretrained('whisper-spelling-bee-model')
     _tokenizer = WhisperTokenizer.from_pretrained('openai/whisper-tiny')
     _p = pyaudio.PyAudio()
     
@@ -55,7 +55,7 @@ class AudioHandler:
             return (in_data, pyaudio.paContinue)
         return callback
 
-    def createAudioFile(self, filesCreated, filename, sleepFunction):
+    def createAudioFile(self, filename, sleepFunction):
         """
         Creates an audio file.
 

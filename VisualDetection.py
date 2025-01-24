@@ -46,7 +46,7 @@ class VisualDetection:
             'bottom' : bottom
         }
 
-    def checkIfTurn(self, picturesSaved):
+    def checkIfTurn(self):
         """
         Checks if its your characters turn in the spelling bee.
         """
@@ -56,7 +56,6 @@ class VisualDetection:
         squareSize = max(widthRatio, heightRatio)
         pyautogui.screenshot(imageFilename="check.png", region=(self._windowInfo['centerWidth'] - widthRatio, self._windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
         if self.featureMatch('reference.png', 'check.png', 20):
-            shutil.copy("check.png", "dataset/check" + str(picturesSaved) + ".png") 
             return True
         else:
             return False
