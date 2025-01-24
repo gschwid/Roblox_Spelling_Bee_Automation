@@ -1,29 +1,29 @@
 from tkinter import *
 from tkinter import ttk
+from Script import Script
+
+script = Script()
 
 root = Tk()
 root.title("Roblox Script")
+root.geometry("500x500")
 
-# Create a frame with padding
-mainframe = ttk.Frame(root, padding="3 3 12 12")
+mainframe = ttk.Frame(root, padding="3 3 3 3")
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
-# Create the Start and Stop buttons
-start_button = Button(mainframe, text="Start Script")
-stop_button = Button(mainframe, text="Stop Script")
+start_button = Button(mainframe, text="Start Script", command=script.startScript)
+stop_button = Button(mainframe, text="Stop Script", command=script.stopScript)
 
-# Place the buttons in the grid and make them stretch horizontally
-start_button.grid(column=0, row=0, sticky="ew", padx=5)
-stop_button.grid(column=1, row=0, sticky="ew", padx=5)
+start_button.grid(column=0, row=0, sticky="wens", padx=5, pady=5)
+stop_button.grid(column=0, row=1, sticky="wens", padx=5, pady=5)
 
-# Configure the columns to expand and take equal space
-root.columnconfigure(0, weight=1)
-root.columnconfigure(1, weight=1)
-
-# Configure the row to expand as well
+# Configure the mainframe columns and rows to expand
+mainframe.columnconfigure(0, weight=1)
 mainframe.rowconfigure(0, weight=1)
+mainframe.rowconfigure(1, weight=1)
 
-# Set an initial size for the window
-root.geometry("400x100")  # You can adjust the size to your liking
+# Configure the root window to allow the mainframe to expand
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
 
 root.mainloop()
