@@ -143,10 +143,14 @@ class VisualDetection:
             print('Roblox window not open...')
             return False
         
-    def handleDeath(self):
+    def handleDeath(self, scrollTime):
         """
         Clicks the screen to handle death pop up.
+
+        Attributes:
+            scrollTime (int): time it takes to move cursor to middle of screen.
         """
         self.updateWindowInfo()
+        pyautogui.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'] - 30, scrollTime)
         pyautogui.click(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'])
 

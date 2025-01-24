@@ -34,7 +34,7 @@ if __name__ == '__main__':
                 typingHandler.writeWord(word,0.1)
                 foundMatches = 0
                 visualDetector.waitForRepeatButton(3, 7)
-                visualDetector.handleDeath()
+                visualDetector.handleDeath(3)
         loop += 1
             
             
