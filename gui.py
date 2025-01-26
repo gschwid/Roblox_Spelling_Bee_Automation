@@ -14,8 +14,11 @@ def threadStart():
 
 def killThread():
     global thread
-    script.stopScript()
-    thread.join()
+    try:
+        script.stopScript()
+        thread.join()
+    except:
+        print("Script not running")
 
 root = Tk()
 root.title("Roblox Script")
@@ -30,16 +33,18 @@ def checkStatus():
     global textVar1
     while True:
         textVar1.set(script.getStatusOfScript())
-        time.sleep(0.5)
+        time.sleep(1)
 
 def checkWord():
     while True:
         textVar2.set(script.getDetectedWord())
+        time.sleep(1)
 
 threadStatus = threading.Thread(target=checkStatus)
 threadWord = threading.Thread(target=checkWord)
 
 threadStatus.start()
+threadWord.start()
 
 start_button = Button(mainframe, text="Start Script", command=threadStart)
 stop_button = Button(mainframe, text="Stop Script", command=killThread)

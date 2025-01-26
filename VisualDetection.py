@@ -122,9 +122,13 @@ class VisualDetection:
             threshold (int): allowed difference between the R, G, B values.
             sleep: time to sleep once detected. 
         """
-        newPixel = pyautogui.pixel(x, y)
-        while abs(newPixel[0] - newPixel[1]) > threshold or abs(newPixel[1] - newPixel[2]) > threshold or abs(newPixel[2] - newPixel[0]) > threshold:
-            newPixel = pyautogui.pixel(x, y)
+        pyautogui.screenshot("button_check.png")
+        buttonImage = cv.imread("button_check.png")
+        newPixel = buttonImage[y, x]
+        while abs(int(newPixel[0]) - int(newPixel[1])) > threshold or abs(int(newPixel[1]) - int(newPixel[2])) > threshold or abs(int(newPixel[2]) - int(newPixel[0])) > threshold:
+            pyautogui.screenshot("button_check.png")
+            buttonImage = cv.imread("button_check.png")
+            newPixel = buttonImage[y, x]
         if sleep > 0:
             time.sleep(sleep)
         print("Pixel change detected!")

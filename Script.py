@@ -2,6 +2,7 @@ from VisualDetection import VisualDetection
 from AudioHandler import AudioHandler
 from TypingHandler import TypingHandler
 import time
+import queue
 
 
 class Script:
@@ -9,8 +10,9 @@ class Script:
     _visualDetector = VisualDetection()
     _typingHandler = TypingHandler()
     _running = False
-    _status = ""
+    _status = "Script is off."
     _word = ""
+    _mainThreadQue = queue.Queue()
 
     def startScript(self):
         imagesSaved = 0
@@ -47,6 +49,7 @@ class Script:
 
     def stopScript(self):
         self._running = False
+        time.sleep(0.5)
         self._status = "Script is off."
 
     def getStatusOfScript(self):
@@ -60,5 +63,8 @@ class Script:
 
     def setDetectedWord(self, word):
         self._word = word
+
+    def getMainThreadQue(self):
+        return self._mainThreadQue
                 
             
