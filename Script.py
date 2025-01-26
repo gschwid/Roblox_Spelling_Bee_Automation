@@ -9,31 +9,34 @@ class Script:
     _visualDetector = VisualDetection()
     _typingHandler = TypingHandler()
     _running = False
+    _status = ""
+    _word = ""
 
     def startScript(self):
-        print("hi")
         imagesSaved = 0
         self._running = True
+        foundMatches = 0
         while self._running:
-            print("waaaaaa")
             # Wait for a Roblox window to open
             while not self._visualDetector.checkIfRobloxIsOpen():
                 time.sleep(1)
                 pass
             
-            print("Starting script... \nLooking for roblox charatcer")
-            foundMatches = 0
+            self.setStatusOfScript("Searching for character...")
             match = self._visualDetector.checkIfTurn(imagesSaved)
             if match:
                 foundMatches +=1
             else:
                 foundMatches = 0
             if foundMatches >= 3:
+                self.setStatusOfScript("Found Character.")
+                print("Found character")
                 found = True
-                validDetection = self._audioHandler.createAudioFile(imagesSaved, 'word.wav', self._visualDetector.waitForRepeatButton) 
+                validDetection = self._audioHandler.createAudioFile(imagesSaved, 'word.wav', self._visualDetector.waitForRepeatButton)
                 if validDetection: # This makes sure time out did not happen
                     sentence = self._audioHandler.transcribeAudio('word.wav')
                     word = self._audioHandler.getWordFromSentence(sentence)
+                    self.setDetectedWord(word)
                     self._typingHandler.writeWord(word,0.1)
                     foundMatches = 0
                     imagesSaved += 1
@@ -43,7 +46,19 @@ class Script:
                     print ("Looks like the button was not found before timed out, must have been a false character detection.")
 
     def stopScript(self):
-        print("bye")
         self._running = False
+        self._status = "Script is off."
+
+    def getStatusOfScript(self):
+        return self._status
+        
+    def setStatusOfScript(self, newStatus):
+        self._status = newStatus
+
+    def getDetectedWord(self):
+        return self._word
+
+    def setDetectedWord(self, word):
+        self._word = word
                 
             

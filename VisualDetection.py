@@ -85,6 +85,7 @@ class VisualDetection:
             for m,n in matches:
                 if m.distance < 0.75*n.distance:
                     good.append([m])
+            print(len(good))
             if len(good) >= minGoodMatches:      
                 return True
             else:
