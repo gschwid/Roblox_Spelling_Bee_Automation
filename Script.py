@@ -29,7 +29,6 @@ class Script:
                     foundMatches = 0
                 if foundMatches >= 3:
                     self.setStatusOfScript("Found Character.")
-                    print("Found character")
                     found = True
                     validDetection = self._audioHandler.createAudioFile(imagesSaved, 'word.wav', self._visualDetector.waitForRepeatButton)
                     if validDetection: # This makes sure time out did not happen
@@ -45,11 +44,10 @@ class Script:
                         print ("Looks like the button was not found before timed out, must have been a false character detection.")
             else:
                 self.setStatusOfScript("Waiting for Roblox window...")
+        self.setStatusOfScript("Script is off.")
 
     def stopScript(self):
         self._running = False
-        time.sleep(0.2)
-        self._status = "Script is off."
 
     def getStatusOfScript(self):
         return self._status

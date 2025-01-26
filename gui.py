@@ -5,20 +5,26 @@ import threading
 import time
 
 script = Script()
-scriptThread = threading.Thread(target=script.startScript)
+scriptThread = threading.Thread(target=script.startScript, daemon=True)
 checkStatusRunning = True
 checkWordRunning = True
+scriptStarted = False
 
 def threadStart():
     global scriptThread
-    scriptThread = threading.Thread(target=script.startScript)
-    scriptThread.start()
+    global scriptStarted
+    if not scriptStarted:
+        scriptThread = threading.Thread(target=script.startScript, daemon=True)
+        scriptThread.start()
+        scriptStarted = True
 
 def killThread():
     global scriptThread
+    global scriptStarted
     try:
         script.stopScript()
         scriptThread.join()
+        scriptStarted = False
     except:
         print("Thread not running")
 
@@ -56,8 +62,8 @@ mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 statusVar = StringVar()
 wordVar = StringVar()
 
-threadStatus = threading.Thread(target=checkStatus)
-threadWord = threading.Thread(target=checkWord)
+threadStatus = threading.Thread(target=checkStatus, daemon=True)
+threadWord = threading.Thread(target=checkWord, daemon=True)
 
 start_button = Button(mainframe, text="Start Script", command=threadStart)
 stop_button = Button(mainframe, text="Stop Script", command=killThread)
@@ -79,8 +85,7 @@ mainframe.columnconfigure(0, weight=1)
 mainframe.columnconfigure(1, weight=1)
 mainframe.rowconfigure(0, weight=1)
 mainframe.rowconfigure(1, weight=1)
-mainframe.rowconfigure(2, weight=1)
-mainframe.rowconfigure(3, weight=1)
+mainframe.rowconfigure(2, weight=3)
 
 # Configure the root window to allow the mainframe to expand
 root.columnconfigure(0, weight=1)
