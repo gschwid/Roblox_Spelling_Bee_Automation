@@ -107,7 +107,7 @@ mainframe.rowconfigure(1, weight=1)
 status_frame.columnconfigure(0, weight=1)
 status_frame.columnconfigure(1, weight=2)
 
-button_frame.columnconfigure(0, weight=2)
+button_frame.columnconfigure(0, weight=1)
 button_frame.columnconfigure(1, weight=1)
 
 # Threads for background tasks

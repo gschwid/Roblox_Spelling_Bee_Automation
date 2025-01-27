@@ -1,9 +1,6 @@
 from VisualDetection import VisualDetection
 from AudioHandler import AudioHandler
 from TypingHandler import TypingHandler
-import time
-import queue
-
 
 class Script:
     _audioHandler = AudioHandler()
@@ -12,7 +9,6 @@ class Script:
     _running = False
     _status = "Script is off."
     _word = ""
-    _mainThreadQue = queue.Queue()
 
     def startScript(self):
         imagesSaved = 0
