@@ -55,7 +55,7 @@ class VisualDetection:
         heightRatio = int(self._windowInfo['height'] / 12)
         squareSize = max(widthRatio, heightRatio)
         pyautogui.screenshot(imageFilename="check.png", region=(self._windowInfo['centerWidth'] - widthRatio, self._windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
-        if self.featureMatch('reference.png', 'check.png', 20):
+        if self.featureMatch('reference.png', 'check.png', 15):
             return True
         else:
             return False
@@ -109,11 +109,12 @@ class VisualDetection:
         self.updateWindowInfo()
         try:
             func_timeout.func_timeout(timeout, self.waitForPixelChangeNuetralColor, args=(self._windowInfo['right'] - 30, self._windowInfo['centerHeight'], 0, sleep))
+            print("Button found!")
             return True
         except func_timeout.FunctionTimedOut:
             print("Button took too long to find, timing out..")
             return False
-
+            
     def waitForPixelChangeNuetralColor(self, x, y, threshold, sleep):
         """
         Waits for a pixel change on specified pixel to a nuetral color.
@@ -133,7 +134,6 @@ class VisualDetection:
             newPixel = buttonImage[y, x]
         if sleep > 0:
             time.sleep(sleep)
-        print("Pixel change detected!")
         return
 
     def checkIfRobloxIsOpen(self):
@@ -156,6 +156,7 @@ class VisualDetection:
             scrollTime (int): time it takes to move cursor to middle of screen.
         """
         self.updateWindowInfo()
-        pyautogui.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'] - 30, scrollTime)
+        pyautogui.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'] - 30, int(scrollTime / 2))
+        pyautogui.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'], int(scrollTime / 2))
         pyautogui.click(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'])
 

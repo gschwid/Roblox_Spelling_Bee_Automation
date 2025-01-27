@@ -11,31 +11,28 @@ class Script:
     _word = ""
 
     def startScript(self):
-        imagesSaved = 0
         self._running = True
         foundMatches = 0
         while self._running:
             # Check if Roblox window is open
             if self._visualDetector.checkIfRobloxIsOpen():
                 self.setStatusOfScript("Searching for character...")
-                match = self._visualDetector.checkIfTurn(imagesSaved)
+                match = self._visualDetector.checkIfTurn()
                 if match:
                     foundMatches +=1
                 else:
                     foundMatches = 0
                 if foundMatches >= 3:
-                    self.setStatusOfScript("Found Character.")
-                    found = True
-                    validDetection = self._audioHandler.createAudioFile(imagesSaved, 'word.wav', self._visualDetector.waitForRepeatButton)
+                    self.setStatusOfScript("Found character.")
+                    validDetection = self._audioHandler.createAudioFile('word.wav', self._visualDetector.waitForRepeatButton)
                     if validDetection: # This makes sure time out did not happen
                         sentence = self._audioHandler.transcribeAudio('word.wav')
                         word = self._audioHandler.getWordFromSentence(sentence)
                         self.setDetectedWord(word)
+                        self.setStatusOfScript("Typing word.")
                         self._typingHandler.writeWord(word,0.1)
                         foundMatches = 0
-                        imagesSaved += 1
-                        self._visualDetector.waitForRepeatButton(3, 7)
-                        self._visualDetector.handleDeath()
+                        self._visualDetector.handleDeath(3)
                     else:
                         print ("Looks like the button was not found before timed out, must have been a false character detection.")
             else:

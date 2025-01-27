@@ -77,7 +77,7 @@ class AudioHandler:
             stream_callback=callback
         ) as stream:             
             print(f'recording stream to {filename}, stopping when repeat button detected...')
-            if sleepFunction(0.5, 7):
+            if sleepFunction(0.5, 5):
                 wave_file.close()
                 return True
             else:
