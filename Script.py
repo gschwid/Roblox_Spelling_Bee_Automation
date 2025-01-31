@@ -38,9 +38,9 @@ class Script:
                     foundMatches = 0
                 if foundMatches >= 3:
                     self.setStatusOfScript("Found character.")
-                    validDetection = self._audioHandler.createAudioFile('word.wav', self._visualDetector.waitForRepeatButton)
+                    validDetection = self._audioHandler.createAudioFile('generated-content/word.wav', self._visualDetector.waitForRepeatButton)
                     if validDetection: # This makes sure time out did not happen
-                        sentence = self._audioHandler.transcribeAudio('word.wav')
+                        sentence = self._audioHandler.transcribeAudio('generated-content/word.wav')
                         word = self._audioHandler.getWordFromSentence(sentence)
                         self.setDetectedWord(word)
                         self.setStatusOfScript("Typing word.")
