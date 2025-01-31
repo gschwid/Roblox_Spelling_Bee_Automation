@@ -3,6 +3,17 @@ from AudioHandler import AudioHandler
 from TypingHandler import TypingHandler
 
 class Script:
+    """
+    Class that handles running the Roblox Spelling Bee script. 
+
+    Attributes:
+        _audioHandler (AudioHandler): An instance of the AudioHandler class for managing audio processing.
+        _visualDetector (VisualDetection): An instance of the VisualDetection class for handling visual detection.
+        _typingHandler (TypingHandler): An instance of the TypingHandler class for managing typing-related actions.
+        _running (bool): A flag indicating whether the script is currently running.
+        _status (str): The current status of the script.
+        _word (str): The most recently detected word by the script.
+    """
     _audioHandler = AudioHandler()
     _visualDetector = VisualDetection()
     _typingHandler = TypingHandler()
@@ -11,6 +22,9 @@ class Script:
     _word = ""
 
     def startScript(self):
+        """
+        Starts the Roblox Spellig Bee script. 
+        """
         self._running = True
         foundMatches = 0
         while self._running:
@@ -40,6 +54,9 @@ class Script:
         self.setStatusOfScript("Script is off.")
 
     def stopScript(self):
+        """
+        Stops the Roblox spelling bee script. 
+        """
         self._running = False
 
     def getStatusOfScript(self):

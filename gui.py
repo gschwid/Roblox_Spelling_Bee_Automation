@@ -6,7 +6,20 @@ import time
 import sv_ttk
 
 class Gui:
-    
+    """
+    Class that handles the gui for the Roblox spelling bee script
+
+    Attributes:
+        _script (Script): An instance of the Script class that manages the script's execution.
+        _scriptThread (threading.Thread): A daemon thread that runs the script's startScript method.
+        _checkStatusRunning (bool): Flag indicating whether the status-checking loop should continue running.
+        _checkWordRunning (bool): Flag indicating whether the word-checking loop should continue running.
+        _scriptStarted (bool): Tracks whether the script has started execution.
+        _root (Tk): The main Tkinter window instance.
+        _statusVar (StringVar): A Tkinter StringVar holding the script's status message.
+        _wordVar (StringVar): A Tkinter StringVar storing word-related information.
+
+    """
     _script = Script()
     _scriptThread = threading.Thread(target=_script.startScript, daemon=True)
     _checkStatusRunning = True
@@ -118,6 +131,6 @@ class Gui:
 
     def startGui(self):
         """
-        Run the Roblox spelling bee script.
+        Run the gui.
         """
         self._root.mainloop()
