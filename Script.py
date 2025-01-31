@@ -53,8 +53,5 @@ class Script:
 
     def setDetectedWord(self, word):
         self._word = word
-
-    def getMainThreadQue(self):
-        return self._mainThreadQue
                 
             

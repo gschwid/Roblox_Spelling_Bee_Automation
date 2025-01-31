@@ -3,5 +3,4 @@ ImageTest.py
 check.png
 word.wav
 dataset/
-spelling_dataset.csv
 whisper-spelling-bee-model/
