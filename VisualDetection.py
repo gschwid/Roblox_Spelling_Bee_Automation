@@ -3,8 +3,7 @@ import time
 import cv2 as cv
 from pywinauto import Application
 import func_timeout
-import shutil
-import os
+import pydirectinput
 
 class VisualDetection:
     """
@@ -159,7 +158,13 @@ class VisualDetection:
             scrollTime (int): time it takes to move cursor to middle of screen.
         """
         self.updateWindowInfo()
-        pyautogui.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'] - 30, int(scrollTime / 2))
-        pyautogui.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'], int(scrollTime / 2))
-        pyautogui.click(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'])
+        time.sleep(scrollTime)
+        pydirectinput.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'] - 30, duration=scrollTime)
+        pydirectinput.moveTo(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'], duration=scrollTime)
+        pydirectinput.click(self._windowInfo['centerWidth'], self._windowInfo['centerHeight'])
 
+
+if __name__ == '__main__':
+    visualDetector = VisualDetection()
+    visualDetector.checkIfRobloxIsOpen()
+    visualDetector.handleDeath(6)
