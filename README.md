@@ -31,8 +31,13 @@ Once transcribed, the bot uses PyAutoGUI to automatically type the detected word
 
 This bot should work on most Windows machines. If you're using Windows, follow these steps to set it up:
 
-### 1) Prepare a reference image
-- You need an image of your Roblox character saved as "reference.png" in this directory.
+### 1) Download the compiled program
+- Zip file can be found [here](https://drive.google.com/file/d/1n6vo-PFLL8N1JkoMcFGWhvCMTkL2LZyC/view?usp=sharing)
+- Download and extract it somewhere on your computer. 
+- Open up the folder, you should see the application file, an _internal folder (dont edit this), and a reference picture.
+
+### 2) Prepare a reference image
+- You need an image of your Roblox character saved as "reference.png" in this directory, replacing the one showing mine.
 - If you're unsure what it should look like, check the example image in the repository.
 - Ensure the screenshot only contains your character with minimal background elements for better detection.
 
@@ -43,5 +48,6 @@ This bot should work on most Windows machines. If you're using Windows, follow t
 ### 3) Disable In-Game Music
 - Turn off all in-game music to prevent audio interference with the bot’s speech recognition.
 
-### 4) Install Dependencies (Docker Support Coming Soon)
-A Docker file is currently in development to simplify deployment. Until then, you'll need to manually install all dependencies.
+### 4) Run the application
+- Double click the RobloxSpellingBeeBot executable, this will likely take a little bit to open.
+- Have fun!!!
