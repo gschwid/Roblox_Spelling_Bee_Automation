@@ -20,13 +20,13 @@ class TypingHandler:
         for chr in word:
             randomSleepTime = uniform(0, 0.000005)
             randomPercentage = random()
-            if randomPercentage < errorProbability:
-                mistakeChr = self.generateRandomChar()
-                keyDown(mistakeChr)
-                keyUp(mistakeChr)
-                sleep(randomSleepTime)
-                sleep(0.1)
-                keyboard.press_and_release('backspace')
+            # if randomPercentage < errorProbability:
+            #     mistakeChr = self.generateRandomChar()
+            #     keyDown(mistakeChr)
+            #     keyUp(mistakeChr)
+            #     sleep(randomSleepTime)
+            #     sleep(0.1)
+            #     keyboard.press_and_release('backspace')
             keyDown(chr)
             sleep(randomSleepTime)
             keyUp(chr)

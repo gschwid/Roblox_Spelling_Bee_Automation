@@ -53,8 +53,8 @@ class VisualDetection:
         widthRatio = int(self._windowInfo['width'] / 8) # 8 is a hyperparameter that seemed to work well
         heightRatio = int(self._windowInfo['height'] / 12)
         squareSize = max(widthRatio, heightRatio)
-        pyautogui.screenshot(imageFilename="generated-content/check.png", region=(self._windowInfo['centerWidth'] - widthRatio, self._windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
-        if self.featureMatch('reference.png', 'generated-content/check.png', 15):
+        pyautogui.screenshot(imageFilename="_internal/generated-content/check.png", region=(self._windowInfo['centerWidth'] - widthRatio, self._windowInfo['centerHeight'] + heightRatio, squareSize * 2, squareSize * 2))
+        if self.featureMatch('reference.png', '_internal/generated-content/check.png', 15):
             return True
         else:
             return False
@@ -124,13 +124,13 @@ class VisualDetection:
             threshold (int): allowed difference between the R, G, B values.
             sleep: time to sleep once detected. 
         """
-        pyautogui.screenshot("generated-content/button_check.png")
-        buttonImage = cv.imread("generated-content/button_check.png")
+        pyautogui.screenshot("_internal/generated-content/button_check.png")
+        buttonImage = cv.imread("_internal/generated-content/button_check.png")
         try:
             newPixel = buttonImage[y, x]
             while abs(int(newPixel[0]) - int(newPixel[1])) > threshold or abs(int(newPixel[1]) - int(newPixel[2])) > threshold or abs(int(newPixel[2]) - int(newPixel[0])) > threshold:
-                pyautogui.screenshot("generated-content/button_check.png")
-                buttonImage = cv.imread("generated-content/button_check.png")
+                pyautogui.screenshot("_internal/generated-content/button_check.png")
+                buttonImage = cv.imread("_internal/generated-content/button_check.png")
                 newPixel = buttonImage[y, x]
             if sleep > 0:
                 time.sleep(sleep)

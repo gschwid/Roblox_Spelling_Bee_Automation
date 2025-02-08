@@ -18,8 +18,8 @@ class AudioHandler:
     """
 
     CHUNK_SIZE = 512
-    _model = WhisperForConditionalGeneration.from_pretrained('whisper-spelling-bee-model')
-    _featureExtractor = WhisperFeatureExtractor.from_pretrained('whisper-spelling-bee-model')
+    _model = WhisperForConditionalGeneration.from_pretrained('_internal/whisper-spelling-bee-model')
+    _featureExtractor = WhisperFeatureExtractor.from_pretrained('_internal/whisper-spelling-bee-model')
     _tokenizer = WhisperTokenizer.from_pretrained('openai/whisper-tiny')
     _p = pyaudio.PyAudio()
     
