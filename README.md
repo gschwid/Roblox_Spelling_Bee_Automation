@@ -38,6 +38,13 @@ This bot should work on most Windows machines. If you're using Windows, follow t
 
 ### 2) Prepare a reference image
 - You need an image of your Roblox character saved as "reference.png" in this directory, replacing the one showing mine.
+### 1) Download the compiled program
+- Zip file can be found [here](https://drive.google.com/file/d/1n6vo-PFLL8N1JkoMcFGWhvCMTkL2LZyC/view?usp=sharing)
+- Download and extract it somewhere on your computer. 
+- Open up the folder, you should see the application file, an _internal folder (dont edit this), and a reference picture.
+
+### 2) Prepare a reference image
+- You need an image of your Roblox character saved as "reference.png" in this directory, replacing the one showing mine.
 - If you're unsure what it should look like, check the example image in the repository.
 - Ensure the screenshot only contains your character with minimal background elements for better detection.
 
